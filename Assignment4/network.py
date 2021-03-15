@@ -51,7 +51,7 @@ def main():
     
     post_entities = []
 
-    for text in tqdm(real_df[:100]):
+    for text in tqdm(real_df):
         # create temporary list 
         tmp_entities = []
         # create doc object
@@ -107,6 +107,10 @@ def main():
     plt.savefig(outpath_viz, dpi=300, bbox_inches='tight')
     #plt.show()
     
+    
+    '''
+    Creating a dataframe that contains degree centrality, eigenvector and betweennes.
+    '''
     dg = nx.degree_centrality(G)
     ev = nx.eigenvector_centrality(G)
     bc = nx.betweenness_centrality(G)
@@ -115,13 +119,14 @@ def main():
     ev_df = pd.DataFrame(ev.items()).sort_values(weight, ascending=False)
     bc_df = pd.DataFrame(bc.items()).sort_values(weight, ascending=False)
     
-
+    # Renaming column names:
     dg_df.columns = ["Name", "degree_centrality"]
     
     bc_df.columns = ["Name", "betweenness_centrality"]
 
     ev_df.columns = ["Name", "eigenvector_centrality"]
 
+    #Merging dataframes:
     final_df = pd.merge(bc_df, ev_df, on='Name')
     
     final_df = pd.merge(dg_df, final_df, on='Name')

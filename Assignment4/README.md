@@ -16,3 +16,4 @@
   -f the path to the file you would like to create a network from -f "data/fake_or_real_news-Copy1.csv"
   and the minimum number of edges the nodes shoud have in the network -e number.
  
+The 2 files can be found in the folder called outpath. a csv-file and a png-file
